@@ -7,7 +7,3 @@ addons:
   apt:
     sources:
     - ubuntu-toolchain-r-test
-    packages:
-    - libyajl-dev
-    - libxml2-dev
-    - clang
