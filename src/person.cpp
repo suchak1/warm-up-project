@@ -167,7 +167,7 @@ void Person::get_msg_with_info(string msg, Person* sender) {
 }
 
 int Person::get_msgstat(Person recipient){
-  queue<pair<string,Person>> temp = inbox_stat;
+  queue<pair<string,Person> > temp = inbox_stat;
   int count = 0;
 
   while (!temp.empty()) {

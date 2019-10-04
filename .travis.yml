@@ -1,0 +1,9 @@
+language: cpp
+script:
+  - make clean; make && ./run
+compiler:
+  - clang
+addons:
+  apt:
+    sources:
+    - ubuntu-toolchain-r-test
