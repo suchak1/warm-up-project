@@ -27,7 +27,7 @@ INC_DIR = ./inc
 CPPFLAGS += -isystem $(GTEST_DIR)/include
 
 # If Travis CI build, then explicitly specify C++ version
-ifeq ($(CI), "true")
+ifeq "$(CI)" "true"
 	CXX_VER = -std=c++11
 endif
 # Flags passed to the C++ compiler.
