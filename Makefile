@@ -30,6 +30,7 @@ CPPFLAGS += -isystem $(GTEST_DIR)/include
 ifeq "$(CI)" "true"
 	CXX_VER = -std=c++11
 endif
+
 # Flags passed to the C++ compiler.
 CXXFLAGS += $(CXX_VER) -g -Wall -Wextra -pthread
 
