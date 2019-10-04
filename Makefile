@@ -27,7 +27,7 @@ INC_DIR = ./inc
 CPPFLAGS += -isystem $(GTEST_DIR)/include
 
 # Flags passed to the C++ compiler.
-CXXFLAGS += -g -Wall -Wextra -pthread
+CXXFLAGS += -std=c++11 -g -Wall -Wextra -pthread
 
 # All tests produced by this Makefile.  Remember to add new tests you
 # created to the list.
@@ -75,7 +75,7 @@ gtest_main.a : gtest-all.o gtest_main.o
 
 community.o : $(SRC_DIR)/community.cpp  $(GTEST_HEADERS)
 	$(CXX) -I $(INC_DIR) $(CPPFLAGS) $(CXXFLAGS) -c $(SRC_DIR)/community.cpp
-	
+
 person.o : $(SRC_DIR)/person.cpp  $(GTEST_HEADERS)
 	$(CXX) -I $(INC_DIR) $(CPPFLAGS) $(CXXFLAGS) -c $(SRC_DIR)/person.cpp
 
