@@ -148,13 +148,16 @@ void Person::add_to_block_list(string username){
 bool Person::in_block_list(string username){
 	return block_list.find(username) != block_list.end();
 }
-// condition: receipient must have < 5 msg from self (recipient.get_msgstat(this) < 5)
-// and self is not in receipient's block list => !recipient.in_block_list(username)
+
+void Person::add_msg(pair <string, Person> new_msg) {
+  inbox_stat.push(new_msg);
+}
+
 bool Person::send_msg(Person &recipient, string msg) {
 
 	if (recipient.get_msgstat(*this) < 5 && !recipient.in_block_list(username)) {
-    // std::pair <string, Person> msg = make_pair(msg, this);
-    // recipient.inbox_stat.push(msg);
+    pair <string, Person> new_msg = make_pair(msg, *this);
+    recipient.add_msg(new_msg);
     return true;
   }
 
