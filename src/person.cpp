@@ -42,6 +42,8 @@ int Person::get_age() {
 string Person::get_tagline() {
     return tagline;
 }
+
+//Where tf is the spec for this?
 string Person::get_info() {
     string ret =
       "username: " + get_username() +
@@ -163,7 +165,8 @@ bool Person::send_msg(Person &recipient, string msg) {
 
 void Person::get_msg_with_info(string msg, Person* sender) {
 	// TODO
-	// get message
+	// specs? 
+  cout << "User: " << sender*.get_username() << " says: " << msg;
 }
 
 int Person::get_msgstat(Person recipient){
@@ -179,7 +182,7 @@ int Person::get_msgstat(Person recipient){
 
 bool Person::read_msg() {
 	// TODO
-  //returns true if a message is succesfully 
+  //returns true if a message is succesfully read
 	if (!inbox_stat.empty()){
     cout << inbox_stat.front();
     inbox_stat.pop();
@@ -187,6 +190,4 @@ bool Person::read_msg() {
   }
   else
     return false;
-  
-
 }
