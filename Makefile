@@ -86,7 +86,7 @@ test_community.o : $(TEST_DIR)/test_community.cpp  $(GTEST_HEADERS)
 	$(CXX) -I $(INC_DIR) $(CPPFLAGS) $(CXXFLAGS) -c $(TEST_DIR)/test_community.cpp
 
 run.o : $(TEST_DIR)/run.cpp  $(GTEST_HEADERS)
-	$(CXX) -std=c++0x -I $(INC_DIR) $(CPPFLAGS) $(CXXFLAGS) -c $(TEST_DIR)/run.cpp
+	$(CXX) -I $(INC_DIR) $(CPPFLAGS) $(CXXFLAGS) -c $(TEST_DIR)/run.cpp
 
 run : community.o person.o test_community.o test_person.o run.o gtest_main.a
 	$(CXX) $(CPPFLAGS) $(CXXFLAGS) -lpthread $^ -o $@
