@@ -153,8 +153,8 @@ bool Person::in_block_list(string username){
 bool Person::send_msg(Person &recipient, string msg) {
 
 	if (recipient.get_msgstat(*this) < 5 && !recipient.in_block_list(username)) {
-    // std::pair <string, Person> msg = make_pair(msg, this);
-    // recipient.inbox_stat.push(msg);
+    pair <string, Person> new_msg = make_pair(msg, *this);
+    recipient.inbox_stat.push(new_msg);
     return true;
   }
 
