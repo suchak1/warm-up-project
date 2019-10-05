@@ -11,15 +11,34 @@ protected:
 // test get_username and set_username
 TEST_F(test_person, test_username) {
 	EXPECT_FALSE(person.set_username(""));
+	EXPECT_EQ(person.get_username(), "");
+
 	EXPECT_FALSE(person.set_username("abc,"));
+	EXPECT_EQ(person.get_username(), "");
+
 	EXPECT_FALSE(person.set_username(std::string (129, 'a')));
+	EXPECT_EQ(person.get_username(), "");
+
 	EXPECT_FALSE(person.set_username("a"));
+	EXPECT_EQ(person.get_username(), "");
+
 	EXPECT_FALSE(person.set_username("1a"));
-	EXPECT_TRUE(person.set_username("a1"));
-	EXPECT_TRUE(person.set_username("alpha1"));
-	EXPECT_TRUE(person.set_username("beta2"));
-	EXPECT_TRUE(person.set_username("th1sw0rk5"));
+	EXPECT_EQ(person.get_username(), "");
+
 	EXPECT_FALSE(person.set_username("nodigits"));
+	EXPECT_EQ(person.get_username(), "");
+
+	EXPECT_TRUE(person.set_username("a1"));
+	EXPECT_EQ(person.get_username(), "a1");
+
+	EXPECT_TRUE(person.set_username("alpha1"));
+	EXPECT_EQ(person.get_username(), "alpha1");
+
+	EXPECT_TRUE(person.set_username("beta2"));
+	EXPECT_EQ(person.get_username(), "beta2");
+
+	EXPECT_TRUE(person.set_username("th1sw0rk5"));
+	EXPECT_EQ(person.get_username(), "th1sw0rk5");
 }
 
 // test get_firstname and set_firstname
