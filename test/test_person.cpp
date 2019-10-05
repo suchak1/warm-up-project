@@ -16,7 +16,7 @@ TEST_F(test_person, test_username) {
 	EXPECT_FALSE(person.set_username("abc,"));
 	EXPECT_EQ(person.get_username(), "");
 
-	EXPECT_FALSE(person.set_username(std::string (129, 'a')));
+	EXPECT_FALSE(person.set_username(std::string (129, 'x')));
 	EXPECT_EQ(person.get_username(), "");
 
 	EXPECT_FALSE(person.set_username("a"));
@@ -119,22 +119,81 @@ TEST_F(test_person, test_lastname) {
 //   it will abort the whole testing which will hinder the grading process
 TEST_F(test_person, test_age) {
 	EXPECT_FALSE(person.set_age(-1));
+	EXPECT_EQ(person.get_age(), 0);
+
+	EXPECT_FALSE(person.set_age(100));
+	EXPECT_EQ(person.get_age(), 0);
+
+	EXPECT_FALSE(person.set_age(17));
+	EXPECT_EQ(person.get_age(), 0);
+
 	EXPECT_TRUE(person.set_age(18));
 	EXPECT_EQ(person.get_age(), 18);
-	EXPECT_FALSE(person.set_age(149));
+
+	EXPECT_TRUE(person.set_age(99));
+	EXPECT_EQ(person.get_age(), 99);
 }
 
 //test get_gender and set_gender
-TEST_F(test_person,test_gender){
+TEST_F(test_person,test_gender) {
+	EXPECT_FALSE(person.set_gender(-1));
+	EXPECT_EQ(person.get_gender(), 0);
+
+	EXPECT_FALSE(person.set_gender(0));
+	EXPECT_EQ(person.get_gender(), 0);
+
+	EXPECT_FALSE(person.set_gender(3));
+	EXPECT_EQ(person.get_gender(), 0);
+
+	EXPECT_TRUE(person.set_gender(1));
+	EXPECT_EQ(person.get_gender(), 1);
+
+	EXPECT_TRUE(person.set_gender(2));
+	EXPECT_EQ(person.get_gender(), 2);
 }
 
 // test get_tagline and set_tagline
 TEST_F(test_person, test_tagline) {
+	EXPECT_FALSE(person.set_tagline(""));
+	EXPECT_EQ(person.get_tagline(), "");
+
+	EXPECT_FALSE(person.set_tagline(std::string (513, 'x')));
+	EXPECT_EQ(person.get_tagline(), "");
+
+	EXPECT_TRUE(person.set_tagline("xyz"));
+	EXPECT_EQ(person.get_tagline(), "xyz");
+
+	EXPECT_TRUE(person.set_tagline(std::string (512, 'x')));
+	EXPECT_EQ(person.get_tagline(), std::string (512, 'x'));
 }
 
 // test get_info and set_info
 TEST_F(test_person, test_info) {
+	// set_info(string _username, string _firstname, string _lastname,
+	//                       int _age, string _tagline, int _gender)
+	EXPECT_FALSE(person.set_info("alpha", "Ash", "Ketchum", 18, "Pikachu", 2));
+	EXPECT_EQ(person.get_info(), "username: , first name: , last name: , gender: 0, age: 0, tagline: ");
+
+	EXPECT_FALSE(person.set_info("alpha1", "Ash1", "Ketchum", 18, "Pikachu", 2));
+	EXPECT_EQ(person.get_info(), "username: , first name: , last name: , gender: 0, age: 0, tagline: ");
+
+	EXPECT_FALSE(person.set_info("alpha1", "Ash", "Ketchum1", 18, "Pikachu", 2));
+	EXPECT_EQ(person.get_info(), "username: , first name: , last name: , gender: 0, age: 0, tagline: ");
+
+	EXPECT_FALSE(person.set_info("alpha1", "Ash", "Ketchum", 17, "Pikachu", 2));
+	EXPECT_EQ(person.get_info(), "username: , first name: , last name: , gender: 0, age: 0, tagline: ");
+
+	EXPECT_FALSE(person.set_info("alpha1", "Ash", "Ketchum", 18, "", 2));
+	EXPECT_EQ(person.get_info(), "username: , first name: , last name: , gender: 0, age: 0, tagline: ");
+
+	EXPECT_FALSE(person.set_info("alpha1", "Ash", "Ketchum", 18, "Pikachu", 0));
+	EXPECT_EQ(person.get_info(), "username: , first name: , last name: , gender: 0, age: 0, tagline: ");
+
+	EXPECT_TRUE(person.set_info("alpha1", "Ash", "Ketchum", 18, "Pikachu", 2));
+	EXPECT_EQ(person.get_info(), "username: alpha1, first name: Ash, last name: Ketchum, gender: Male, age: 18, tagline: Pikachu");
+
 }
+
 
 
 

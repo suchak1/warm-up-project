@@ -43,13 +43,20 @@ string Person::get_tagline() {
     return tagline;
 }
 string Person::get_info() {
-    string ret =
-      "username: " + get_username() +
-      " first name: " + get_firstname() +
-      " last name: " + get_lastname() +
-      " gender: " + std::to_string(get_gender()) +
-      " age: " + std::to_string(get_age()) +
-      " tagline: " + get_tagline();
+    vector<string> fields =
+        {"username", "first name", "last name", "gender", "age", "tagline"};
+
+    vector<string> info =
+        {get_username(), get_firstname(), get_lastname(),
+        (get_gender() == 0 ? "0" : get_gender() - 1 ? "Male" : "Female"),
+        std::to_string(get_age()), get_tagline()};
+
+    string ret = "";
+
+    for (int i = 0; i < fields.size(); i++) {
+      ret += fields[i] + ": " + info[i] + (i < fields.size() - 1 ? ", " : "");
+    }
+
     return ret;
 }
 
@@ -131,14 +138,16 @@ bool Person::set_tagline(string _tagline) {
 
 bool Person::set_info(string _username, string _firstname, string _lastname,
                       int _age, string _tagline, int _gender) {
+  bool success = true;
 
-  return
-    set_username(_username) &&
-    set_firstname(_firstname) &&
-    set_lastname(_lastname) &&
-    set_age(_age) &&
-    set_tagline(_tagline) &&
-    set_gender(_gender);
+  success &= set_username(_username);
+  success &= set_firstname(_firstname);
+  success &= set_lastname(_lastname);
+  success &= set_age(_age);
+  success &= set_tagline(_tagline);
+  success &= set_gender(_gender);
+
+  return success;
 }
 
 void Person::add_to_block_list(string username){
