@@ -171,31 +171,27 @@ TEST_F(test_person, test_tagline) {
 TEST_F(test_person, test_info) {
 	// set_info(string _username, string _firstname, string _lastname,
 	//                       int _age, string _tagline, int _gender)
-	EXPECT_FALSE(person.set_info("alpha", "Ash", "Ketchum", 18, "Pikachu", 2));
+	EXPECT_FALSE(person.set_info("alpha", "Ash1", "Ketchum1", 17, "", -1));
 	EXPECT_EQ(person.get_info(), "username: , first name: , last name: , gender: 0, age: 0, tagline: ");
 
-	EXPECT_FALSE(person.set_info("alpha1", "Ash1", "Ketchum", 18, "Pikachu", 2));
-	EXPECT_EQ(person.get_info(), "username: , first name: , last name: , gender: 0, age: 0, tagline: ");
+	EXPECT_FALSE(person.set_info("alpha1", "Ash1", "Ketchum1", 17, "", -1));
+	EXPECT_EQ(person.get_info(), "username: alpha1, first name: , last name: , gender: 0, age: 0, tagline: ");
 
-	EXPECT_FALSE(person.set_info("alpha1", "Ash", "Ketchum1", 18, "Pikachu", 2));
-	EXPECT_EQ(person.get_info(), "username: , first name: , last name: , gender: 0, age: 0, tagline: ");
+	EXPECT_FALSE(person.set_info("alpha1", "Ash", "Ketchum1", 0, "", -1));
+	EXPECT_EQ(person.get_info(), "username: alpha1, first name: Ash, last name: , gender: 0, age: 0, tagline: ");
 
-	EXPECT_FALSE(person.set_info("alpha1", "Ash", "Ketchum", 17, "Pikachu", 2));
-	EXPECT_EQ(person.get_info(), "username: , first name: , last name: , gender: 0, age: 0, tagline: ");
+	EXPECT_FALSE(person.set_info("alpha1", "Officer", "Jenny", 17, "", -1));
+	EXPECT_EQ(person.get_info(), "username: alpha1, first name: Officer, last name: Jenny, gender: 0, age: 0, tagline: ");
 
-	EXPECT_FALSE(person.set_info("alpha1", "Ash", "Ketchum", 18, "", 2));
-	EXPECT_EQ(person.get_info(), "username: , first name: , last name: , gender: 0, age: 0, tagline: ");
+	EXPECT_FALSE(person.set_info("alpha1", "Officer", "Jenny", 18, "", -1));
+	EXPECT_EQ(person.get_info(), "username: alpha1, first name: Officer, last name: Jenny, gender: 0, age: 18, tagline: ");
 
-	EXPECT_FALSE(person.set_info("alpha1", "Ash", "Ketchum", 18, "Pikachu", 0));
-	EXPECT_EQ(person.get_info(), "username: , first name: , last name: , gender: 0, age: 0, tagline: ");
+	EXPECT_FALSE(person.set_info("alpha1", "Officer", "Jenny", 18, "Chansey", -1));
+	EXPECT_EQ(person.get_info(), "username: alpha1, first name: Officer, last name: Jenny, gender: 0, age: 18, tagline: Chansey");
 
 	EXPECT_TRUE(person.set_info("alpha1", "Ash", "Ketchum", 18, "Pikachu", 2));
 	EXPECT_EQ(person.get_info(), "username: alpha1, first name: Ash, last name: Ketchum, gender: Male, age: 18, tagline: Pikachu");
-
 }
-
-
-
 
 // test get_msgstat, send_msg, get_msg_with_info and read_msg
 //   to make your code shorter, we suggest combining these tests together; you
