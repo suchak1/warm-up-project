@@ -10,7 +10,7 @@ bool str_isalpha(const string str){
 bool str_isalnum(const string s)
 {
     std::string::const_iterator it = s.begin();
-    while (it != s.end() && std::isdigit(*it)) ++it;
+    while (it != s.end() && std::isalnum(*it)) ++it;
     return !s.empty() && it == s.end();
 }
 
