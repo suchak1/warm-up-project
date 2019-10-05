@@ -39,24 +39,69 @@ TEST_F(test_person, test_username) {
 
 	EXPECT_TRUE(person.set_username("th1sw0rk5"));
 	EXPECT_EQ(person.get_username(), "th1sw0rk5");
+
+	EXPECT_TRUE(person.set_username(std::string (127, 'x') + '0'));
+	EXPECT_EQ(person.get_username(), std::string (127, 'x') + '0');
 }
 
 // test get_firstname and set_firstname
 TEST_F(test_person, test_firstname) {
+	EXPECT_FALSE(person.set_firstname(""));
+	EXPECT_EQ(person.get_firstname(), "");
+
+	EXPECT_FALSE(person.set_firstname("abcde12"));
+	EXPECT_EQ(person.get_firstname(), "");
+
+	EXPECT_FALSE(person.set_firstname("abcdefg0"));
+	EXPECT_EQ(person.get_firstname(), "");
+
+	EXPECT_FALSE(person.set_firstname("abcdefg;"));
+	EXPECT_EQ(person.get_firstname(), "");
+
+	EXPECT_FALSE(person.set_firstname(std::string (65, 'x')));
+	EXPECT_EQ(person.get_firstname(), "");
+
+	EXPECT_TRUE(person.set_firstname("alpha"));
+	EXPECT_EQ(person.get_firstname(), "alpha");
+
+	EXPECT_TRUE(person.set_firstname("beta"));
+	EXPECT_EQ(person.get_firstname(), "beta");
+
+	EXPECT_TRUE(person.set_firstname("gamma"));
+	EXPECT_EQ(person.get_firstname(), "gamma");
+
+	EXPECT_TRUE(person.set_firstname(std::string (64, 'x')));
+	EXPECT_EQ(person.get_firstname(), std::string (64, 'x'));
 }
 
 // test get_lastname and set_lastname
 TEST_F(test_person, test_lastname) {
- 	EXPECT_FALSE(person.set_lastname("abcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklm"));
-	/* original
-	EXPECT_TRUE(person.set_lastname("abcde12"));
- 	EXPECT_STREQ(person.get_lastname().c_str(), "abcde12");
-	*/
-	// fixed
-	EXPECT_FALSE(person.set_lastname("abcde12"));
-	EXPECT_FALSE(person.set_lastname("abcdefg0"));
-	EXPECT_FALSE(person.set_lastname("abcdefg;"));
 	EXPECT_FALSE(person.set_lastname(""));
+	EXPECT_EQ(person.get_lastname(), "");
+
+	EXPECT_FALSE(person.set_lastname("abcde12"));
+	EXPECT_EQ(person.get_lastname(), "");
+
+	EXPECT_FALSE(person.set_lastname("abcdefg0"));
+	EXPECT_EQ(person.get_lastname(), "");
+
+	EXPECT_FALSE(person.set_lastname("abcdefg;"));
+	EXPECT_EQ(person.get_lastname(), "");
+
+	EXPECT_FALSE(person.set_lastname(std::string (65, 'x')));
+	EXPECT_EQ(person.get_lastname(), "");
+
+	EXPECT_TRUE(person.set_lastname("alpha"));
+	EXPECT_EQ(person.get_lastname(), "alpha");
+
+	EXPECT_TRUE(person.set_lastname("beta"));
+	EXPECT_EQ(person.get_lastname(), "beta");
+
+	EXPECT_TRUE(person.set_lastname("gamma"));
+	EXPECT_EQ(person.get_lastname(), "gamma");
+
+	EXPECT_TRUE(person.set_lastname(std::string (64, 'x')));
+	EXPECT_EQ(person.get_lastname(), std::string (64, 'x'));
 }
 
 /**you may need to write more test functions.
