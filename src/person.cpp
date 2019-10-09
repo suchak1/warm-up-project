@@ -100,13 +100,23 @@ bool Person::set_lastname(string _lastname) {
     }
 }
 
-bool Person::set_gender(int _gender){
-    if (_gender == 1 || _gender == 2) {
-      gender = _gender;
-      return true;
-    }
 
+bool valid_gender(int gen){
+  if (gen == 1 || gen == 2) {
+    return true;
+  }
+  else
     return false;
+}
+
+bool Person::set_gender(int _gender){
+    if (valid_gender(_gender)){
+        gender = _gender;
+        return true;
+    }
+    else
+        return false;
+    
 }
 
 bool Person::set_age(int _age) {
@@ -127,7 +137,6 @@ bool Person::set_tagline(string _tagline) {
         return false;
     }
 }
-
 
 bool Person::set_info(string _username, string _firstname, string _lastname,
                       int _age, string _tagline, int _gender) {
