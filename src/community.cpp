@@ -38,10 +38,9 @@ Person& Community::get_member(string username) {
     if (people.find(username) != people.end()) {
     	return people[username];
     }
-    else {
-    	Person* p = new Person();
-	return *p;
-    }
+
+    Person* p = new Person();
+    return *p;
 }
 
 list<string> Community::get_all_usernames() {
