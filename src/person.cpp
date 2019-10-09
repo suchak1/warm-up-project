@@ -1,4 +1,8 @@
 #include "person.h"
+#include <string>       // std::string
+#include <iostream>     // std::cout
+#include <sstream>      // std::ostringstream
+
 
 bool str_isalpha(const string str){
     for(int i = 0; i < str.size(); i++)
@@ -43,14 +47,14 @@ string Person::get_tagline() {
     return tagline;
 }
 string Person::get_info() {
-    string ret =
-      "username: " + get_username() +
-      " first name: " + get_firstname() +
-      " last name: " + get_lastname() +
-      " gender: " + std::to_string(get_gender()) +
-      " age: " + std::to_string(get_age()) +
-      " tagline: " + get_tagline();
-    return ret;
+    std::ostringstream buffer; 
+    buffer << "Username: "<< get_username() << '\n' 
+        << "First Name: "<< get_firstname() << '\n'
+        << "Last Name: "<< get_lastname() << '\n'
+        << "Gender: "<< get_gender() << '\n'
+        << "Age: "<< get_age() << '\n'
+        << "Tagline: "<< get_tagline() << '\n';
+    return buffer.str();
 }
 
 bool str_hasnum(string str) {
@@ -167,7 +171,7 @@ void Person::get_msg_with_info(string msg, Person* sender) {
 }
 
 int Person::get_msgstat(Person recipient){
-  queue<pair<string,Person>> temp = inbox_stat;
+  queue<pair<string,Person> > temp = inbox_stat;
   int count = 0;
 
   while (!temp.empty()) {
