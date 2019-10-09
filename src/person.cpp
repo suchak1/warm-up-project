@@ -109,14 +109,22 @@ bool Person::set_gender(int _gender){
     return false;
 }
 
+bool valid_age(int n){
+  if (n >= 18 && n <= 99){
+    return true;
+  }
+  else
+    return false;
+  
+}
+
 bool Person::set_age(int _age) {
-    if (_age >= 18 && _age <= 99) {
+    if (valid_age(_age)){
         age = _age;
         return true;
     }
-    else {
+    else
         return false;
-    }
 }
 bool Person::set_tagline(string _tagline) {
     if (_tagline != "" && _tagline.length() <= 512) {
