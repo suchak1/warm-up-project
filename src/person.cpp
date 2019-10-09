@@ -1,4 +1,8 @@
 #include "person.h"
+#include <string>       // std::string
+#include <iostream>     // std::cout
+#include <sstream>      // std::ostringstream
+
 
 bool str_isalpha(const string str){
     for(int i = 0; i < str.size(); i++)
@@ -43,14 +47,14 @@ string Person::get_tagline() {
     return tagline;
 }
 string Person::get_info() {
-    string ret =
-      "username: " + get_username() +
-      " first name: " + get_firstname() +
-      " last name: " + get_lastname() +
-      " gender: " + std::to_string(get_gender()) +
-      " age: " + std::to_string(get_age()) +
-      " tagline: " + get_tagline();
-    return ret;
+    std::ostringstream buffer; 
+    buffer << "Username: "<< get_username() << '\n' 
+        << "First Name: "<< get_firstname() << '\n'
+        << "Last Name: "<< get_lastname() << '\n'
+        << "Gender: "<< get_gender() << '\n'
+        << "Age: "<< get_age() << '\n'
+        << "Tagline: "<< get_tagline() << '\n';
+    return buffer.str();
 }
 
 bool str_hasnum(string str) {
@@ -62,17 +66,24 @@ bool str_hasnum(string str) {
   return false;
 }
 
-bool Person::set_username(string _username) {
-  if (_username != "" &&
-    str_isalnum(_username) &&
-    _username.length() <= 128 &&
-    isalpha(_username[0]) &&
-    str_hasnum(_username)) {
-      username = _username;
+bool valid_username(string str){
+  if (str != "" &&
+    str_isalnum(str) &&
+    str.length() <= 128 &&
+    isalpha(str[0]) &&
+    str_hasnum(str)) {
       return true;
     }
 
 	return false;
+} 
+
+bool Person::set_username(string _username) {
+  if (valid_username(_username)){
+      username = _username;
+      return true;
+  }
+  return false;
 }
 
 bool valid_name(string name) {
@@ -131,14 +142,7 @@ bool Person::set_tagline(string _tagline) {
 
 bool Person::set_info(string _username, string _firstname, string _lastname,
                       int _age, string _tagline, int _gender) {
-
-  return
-    set_username(_username) &&
-    set_firstname(_firstname) &&
-    set_lastname(_lastname) &&
-    set_age(_age) &&
-    set_tagline(_tagline) &&
-    set_gender(_gender);
+    if(valid_name(_firstname) && valid_name(_lastname))
 }
 
 void Person::add_to_block_list(string username){
@@ -167,7 +171,7 @@ void Person::get_msg_with_info(string msg, Person* sender) {
 }
 
 int Person::get_msgstat(Person recipient){
-  queue<pair<string,Person>> temp = inbox_stat;
+  queue<pair<string,Person> > temp = inbox_stat;
   int count = 0;
 
   while (!temp.empty()) {
