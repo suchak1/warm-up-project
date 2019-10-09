@@ -41,8 +41,11 @@ Person& Community::get_member(string username) {
 
 list<string> Community::get_all_usernames() {
     list<string> usernames;
-    // TODO
-    // return all usernames of members as a list
+
+    for (auto const& person : people) {
+      usernames.push_back(person.first);
+    }
+
     return usernames;
 }
 
