@@ -23,7 +23,12 @@ bool Community::set_name(string _name) {
 }
 
 bool Community::add_person(Person _person) {
-    contact to_add(_person.get_username(), _person);
+    string username = _person.get_username();
+
+    if (people.count(username) == 0 && username != "") {
+      people.insert(pair<string,Person> (username, _person));
+      return true;
+    }
 
     return false;
 }
