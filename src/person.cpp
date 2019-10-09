@@ -118,14 +118,22 @@ bool Person::set_age(int _age) {
         return false;
     }
 }
+
+bool valid_tagline(string tag){
+  if (tag != "" && tag.length() <= 512){
+    return true;
+  }
+  else
+    return false;
+}
 bool Person::set_tagline(string _tagline) {
-    if (_tagline != "" && _tagline.length() <= 512) {
+    if (valid_tagline(_tagline)){
         tagline = _tagline;
         return true;
     }
-    else {
+    else
         return false;
-    }
+    
 }
 
 
