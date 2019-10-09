@@ -50,14 +50,28 @@ list<string> Community::get_all_usernames() {
 }
 
 void Community::print_all_usernames() {
-    // TODO
-    // print all usernames of members to the console
+    list<string> usernames = get_all_usernames();
+
+    string ret = "[";
+    list<string>:: iterator it;
+
+    for(it = usernames.begin(); it != usernames.end(); ++it) {
+      ret += *it + (it != usernames.end() ? ", " : "");
+    }
+
+    ret += "]";
+
+    cout << "Usernames: " << ret;
 }
 
 list<Person> Community::find_member(string firstname) {
     list<Person> ret;
-    //TODO
-    // find users with a certain first name
+
+    for (auto person : people) {
+      if (person.second.get_firstname() == firstname) {
+        ret.push_back(person.second);
+      }
+    }
     return ret;
 }
 
