@@ -23,7 +23,12 @@ bool Community::set_name(string _name) {
 }
 
 bool Community::add_person(Person _person) {
-    contact to_add(_person.get_username(), _person);
+    string username = _person.get_username();
+
+    if (people.count(username) == 0 && username != "") {
+      people.insert(pair<string,Person> (username, _person));
+      return true;
+    }
 
     return false;
 }
@@ -33,10 +38,9 @@ Person& Community::get_member(string username) {
     if (people.find(username) != people.end()) {
     	return people[username];
     }
-    else {
-    	Person* p = new Person();
-	return *p;
-    }
+
+    Person* p = new Person();
+    return *p;
 }
 
 list<string> Community::get_all_usernames() {
@@ -88,8 +92,17 @@ list<Person> Community::find_member(int age_lb, int age_ub) {
 }
 
 bool Community::send_msg(list<string> usernames, string msg) {
-	//TODO
-	// send msg to a Person addressed by username
-	// make sure the username is validated
-	return false;
+  list<string>:: iterator it;
+  bool success = true;
+
+  for(it = usernames.begin(); it != usernames.end(); ++it) {
+    if (people.count(*it) == 1) {
+      Person().send_msg(people.at(*it), msg);
+    }
+    else {
+      success = false;
+    }
+  }
+
+	return success;
 }
