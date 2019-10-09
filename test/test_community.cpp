@@ -6,7 +6,20 @@
 class test_community: public ::testing::Test {
 protected:
 	Community community;
+	Community* loaded = new Community("Summerbrooke", map<string,Person>
+		{{"null", Person()}});
 };
+
+// test constructors
+TEST_F(test_community, test_constructors) {
+	EXPECT_EQ(community.get_name(), "");
+	EXPECT_EQ(community.get_all_usernames().empty(), true);
+
+	EXPECT_EQ(loaded -> get_name(), "Summerbrooke");
+	EXPECT_EQ(loaded -> get_all_usernames().empty(), false);
+	EXPECT_EQ(loaded -> get_all_usernames().front(), "null");
+	EXPECT_EQ(loaded -> get_member(loaded -> get_all_usernames().front()).get_username(), "");
+}
 
 // you should complete the following test cases
 // you should add more if you see fit
@@ -40,4 +53,3 @@ TEST_F(test_community, get_member) {
 // test send_msg
 TEST_F(test_community, send_msg) {
 }
-
