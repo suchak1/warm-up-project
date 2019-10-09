@@ -10,6 +10,14 @@ protected:
 
 // test get_username and set_username
 TEST_F(test_person, test_username) {
+	EXPECT_FALSE(person.set_username(""));
+	EXPECT_FALSE(person.set_username("!"));
+	EXPECT_TRUE(person.set_username("aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa5"));
+	EXPECT_FALSE(person.set_username("5"));
+	EXPECT_FALSE(person.set_username("fa3!"));
+	EXPECT_TRUE(person.set_username("DAWE0"));
+
+	//do we even need to test get_username?
 }
 
 // test get_firstname and set_firstname
