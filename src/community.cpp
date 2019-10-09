@@ -77,8 +77,13 @@ list<Person> Community::find_member(string firstname) {
 
 list<Person> Community::find_member(int age_lb, int age_ub) {
   list<Person> ret;
-  //TODO
-  // find users within certain ages [age_lb, age_ub], both lower bound and upper bound shall be inclusive
+
+  for (auto person : people) {
+    int age = person.second.get_age();
+    if (age >= age_lb && age <= age_ub) {
+      ret.push_back(person.second);
+    }
+  }
   return ret;
 }
 
