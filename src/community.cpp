@@ -88,8 +88,17 @@ list<Person> Community::find_member(int age_lb, int age_ub) {
 }
 
 bool Community::send_msg(list<string> usernames, string msg) {
-	//TODO
-	// send msg to a Person addressed by username
-	// make sure the username is validated
-	return false;
+  list<string>:: iterator it;
+  bool success = true;
+
+  for(it = usernames.begin(); it != usernames.end(); ++it) {
+    if (people.count(*it) == 1) {
+      Person().send_msg(people.at(*it), msg);
+    }
+    else {
+      success = false;
+    }
+  }
+
+	return success;
 }
