@@ -27,7 +27,7 @@ INC_DIR = ./inc
 CPPFLAGS += -isystem $(GTEST_DIR)/include
 
 # Flags passed to the C++ compiler.
-CXXFLAGS += $(CXX_VER) -g -Wall -Wextra -pthread
+CXXFLAGS += -g -Wall -Wextra -pthread
 
 # All tests produced by this Makefile.  Remember to add new tests you
 # created to the list.
