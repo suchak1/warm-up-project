@@ -1,10 +1,11 @@
 #include "community.h"
+#include "person.h"
 
 Community::Community()
   : name(""), people(map<string,Person>()) {
 }
 
-Community::Community(string _name, map<string,Person> _people) 
+Community::Community(string _name, map<string,Person> _people)
   : name(_name), people(_people) {
 }
 
@@ -13,14 +14,17 @@ string Community::get_name() {
 }
 
 bool Community::set_name(string _name) {
-	//TODO
-	// set name
+  if(_name != "" && _name.length() <= 128 && !isdigit(_name[0]) && str_isalnum(_name)) {
+    name = _name;
+    return true;
+  }
+
     return false;
 }
 
 bool Community::add_person(Person _person) {
     contact to_add(_person.get_username(), _person);
-    
+
     return false;
 }
 
@@ -34,7 +38,7 @@ Person& Community::get_member(string username) {
 	return *p;
     }
 }
-    
+
 list<string> Community::get_all_usernames() {
     list<string> usernames;
     // TODO
@@ -67,4 +71,3 @@ bool Community::send_msg(list<string> usernames, string msg) {
 	// make sure the username is validated
 	return false;
 }
-
