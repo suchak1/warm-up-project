@@ -197,8 +197,10 @@ bool Person::send_msg(Person &recipient, string msg) {
 }
 
 void Person::get_msg_with_info(string msg, Person* sender) {
-	// TODO
-	// get message
+	
+string sauce = sender->get_username();
+
+  cout << "User: " << sauce << " says: " << msg;
 }
 
 int Person::get_msgstat(Person recipient){
@@ -211,10 +213,16 @@ int Person::get_msgstat(Person recipient){
   }
 	return count;
 }
-// delete message (front or back?) and return inbox_stat.length() <= 1
+
 bool Person::read_msg() {
 	// TODO
-	// print the message if there any message inbox
+  //returns true if a message is succesfully 
+	if (!inbox_stat.empty()){
+    cout << inbox_stat.front().first << endl;
+    inbox_stat.pop();
+    return true;
+  }
+  else
+    cout << "" << endl;
     return false;
-
 }
