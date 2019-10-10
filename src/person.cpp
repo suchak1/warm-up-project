@@ -167,7 +167,7 @@ void Person::get_msg_with_info(string msg, Person* sender) {
 }
 
 int Person::get_msgstat(Person recipient){
-  queue<pair<string,Person>> temp = inbox_stat;
+  queue<pair<string,Person> > temp = inbox_stat;
   int count = 0;
 
   while (!temp.empty()) {
@@ -181,11 +181,12 @@ bool Person::read_msg() {
 	// TODO
   //returns true if a message is succesfully 
 	if (!inbox_stat.empty()){
-    cout << inbox_stat.front();
+    cout << inbox_stat.front().first << endl;
     inbox_stat.pop();
     return true;
   }
   else
+    cout << "" << endl;
     return false;
   
 
