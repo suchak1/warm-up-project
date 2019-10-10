@@ -23,7 +23,7 @@ class Person {
     // store received messages
     // similar as inbox, except also recording sender
     // when a message is retrieved, delete it immediately
-    queue<pair<string,Person>> inbox_stat;
+    queue<pair<string,Person> > inbox_stat;
     //  block list
     set<string> block_list;
   public:
