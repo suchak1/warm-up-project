@@ -49,14 +49,34 @@ TEST_F(test_community, add_person) {
 	EXPECT_EQ(community.get_all_usernames().empty(), true);
 	EXPECT_EQ(community.add_person(*loaded_person), true);
 
+
 	EXPECT_EQ(community.get_all_usernames().empty(), false);
+	EXPECT_EQ(community.get_all_usernames().size(), 1);
 	EXPECT_EQ(community.add_person(*loaded_person), false);
+	EXPECT_EQ(community.get_all_usernames().size(), 1);
+
+
+	EXPECT_EQ(loaded -> get_all_usernames().empty(), false);
+	EXPECT_EQ(loaded -> get_all_usernames().size(), 1);
+	EXPECT_EQ(loaded -> add_person(*loaded_person), true);
+	EXPECT_EQ(loaded -> get_all_usernames().size(), 2);
 }
 
 // test get_all_usernames
 //   there's no EXPERT functions for comparing non-built-in types, you need to
 //   do some parsing by yourself
 TEST_F(test_community, get_all_usernames) {
+	EXPECT_EQ(community.get_all_usernames().empty(), true);
+
+
+	EXPECT_EQ(loaded -> get_all_usernames().empty(), false);
+	EXPECT_EQ(loaded -> get_all_usernames().size(), 1);
+	EXPECT_EQ(loaded -> get_all_usernames().front(), "alpha1");
+
+	EXPECT_EQ(loaded -> add_person(*loaded_person), true);
+	EXPECT_EQ(loaded -> get_all_usernames().size(), 2);
+	EXPECT_EQ(loaded -> get_all_usernames().front(), "alpha1");
+	EXPECT_EQ(loaded -> get_all_usernames().back(), "user");
 }
 
 // test find_member by first name and age range
