@@ -8,6 +8,7 @@ protected:
 	Community community;
 	Community* loaded = new Community("Summerbrooke", map<string,Person>
 		{{"alpha1", Person("alpha1", "Ash", "Ketchum", 2, 18, "Pikachu")}});
+	Person* loaded_person = new Person("user", "first", "last", 1, 18, "tag");
 };
 
 // test constructors
@@ -42,6 +43,14 @@ TEST_F(test_community, set_name) {
 
 // test add_person
 TEST_F(test_community, add_person) {
+	EXPECT_EQ(community.get_all_usernames().empty(), true);
+	EXPECT_EQ(community.add_person(Person()), false);
+
+	EXPECT_EQ(community.get_all_usernames().empty(), true);
+	EXPECT_EQ(community.add_person(*loaded_person), true);
+
+	EXPECT_EQ(community.get_all_usernames().empty(), false);
+	EXPECT_EQ(community.add_person(*loaded_person), false);
 }
 
 // test get_all_usernames
