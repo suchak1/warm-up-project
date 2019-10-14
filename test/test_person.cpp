@@ -6,7 +6,7 @@ class test_person: public ::testing::Test {
 protected:
 	Person person;
 	Person recipient;
-	Person* loaded = new Person("user", "first", "last", 1, 18, "tag");
+	Person* loaded = new Person("beta2", "Officer", "Jenny", 1, 18, "Chansey");
 };
 
 // test constructors
@@ -18,12 +18,12 @@ TEST_F(test_person, test_constructors) {
 	EXPECT_EQ(person.get_age(), 0);
 	EXPECT_EQ(person.get_tagline(), "");
 
-	EXPECT_EQ(loaded -> get_username(), "user");
-	EXPECT_EQ(loaded -> get_firstname(), "first");
-	EXPECT_EQ(loaded -> get_lastname(), "last");
+	EXPECT_EQ(loaded -> get_username(), "beta2");
+	EXPECT_EQ(loaded -> get_firstname(), "Officer");
+	EXPECT_EQ(loaded -> get_lastname(), "Jenny");
 	EXPECT_EQ(loaded -> get_gender(), 1);
 	EXPECT_EQ(loaded -> get_age(), 18);
-	EXPECT_EQ(loaded -> get_tagline(), "tag");
+	EXPECT_EQ(loaded -> get_tagline(), "Chansey");
 }
 
 // test get_username and set_username
