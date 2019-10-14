@@ -8,7 +8,7 @@ protected:
 	Community community;
 	Community* loaded = new Community("Summerbrooke", map<string,Person>
 		{{"alpha1", Person("alpha1", "Ash", "Ketchum", 2, 18, "Pikachu")}});
-	Person* loaded_person = new Person("beta2", "Officer", "Jenny", 1, 18, "Chansey");
+	Person* loaded_person = new Person("beta2", "Officer", "Jenny", 1, 20, "Chansey");
 
 };
 
@@ -83,17 +83,27 @@ TEST_F(test_community, get_all_usernames) {
 // test find_member by first name and age range
 TEST_F(test_community, find_member) {
 	EXPECT_EQ(community.find_member("").empty(), true);
+	EXPECT_EQ(community.find_member(0, 0).empty(), true);
 
-	EXPECT_EQ(loaded -> find_member("Misty").empty(), true);
+
+	EXPECT_EQ(loaded -> find_member("Officer").empty(), true);
+	EXPECT_EQ(loaded -> find_member(18, 18).empty(), false);
 	EXPECT_EQ(loaded -> find_member("Ash").empty(), false);
 	EXPECT_EQ(loaded -> find_member("Ash").size(), 1);
+	EXPECT_EQ(loaded -> find_member(18, 18).size(), 1);
 	EXPECT_EQ(loaded -> get_all_usernames().size(), 1);
 	EXPECT_EQ(loaded -> find_member("Ash").front().get_firstname(), "Ash");
+	EXPECT_EQ(loaded -> find_member(18, 18).front().get_firstname(), "Ash");
+
 
 	EXPECT_EQ(loaded -> add_person(*loaded_person), true);
 	EXPECT_EQ(loaded -> find_member("Officer").size(), 1);
 	EXPECT_EQ(loaded -> get_all_usernames().size(), 2);
 	EXPECT_EQ(loaded -> find_member("Officer").front().get_firstname(), "Officer");
+	EXPECT_EQ(loaded -> find_member(18, 19).size(), 1);
+	EXPECT_EQ(loaded -> find_member(18, 20).size(), 2);
+	EXPECT_EQ(loaded -> find_member(0, 17).size(), 0);
+	EXPECT_EQ(loaded -> find_member(21, 99).size(), 0);
 }
 
 // test get_member
