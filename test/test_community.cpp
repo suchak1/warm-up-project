@@ -110,12 +110,13 @@ TEST_F(test_community, find_member) {
 TEST_F(test_community, get_member) {
 	EXPECT_EQ(community.get_member("").get_username(), "");
 
-	EXPECT_EQ(loaded -> get_member("beta2").get_username(), "");
 	EXPECT_EQ(loaded -> get_member("alpha1").get_username(), "alpha1");
+	EXPECT_EQ(loaded -> get_member("beta2").get_username(), "");
 
 	EXPECT_EQ(loaded -> add_person(*loaded_person), true);
-	EXPECT_EQ(loaded -> get_member("beta2").get_username(), "beta2");
 	EXPECT_EQ(loaded -> get_member("alpha1").get_username(), "alpha1");
+	EXPECT_EQ(loaded -> get_member("beta2").get_username(), "beta2");
+	EXPECT_EQ(loaded -> get_member("gamma3").get_username(), "");
 }
 
 // test send_msg
