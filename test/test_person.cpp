@@ -6,6 +6,7 @@ class test_person: public ::testing::Test {
 protected:
 	Person person;
 	Person recipient;
+	Person* illegal = new Person("!Illegal", "Ash", "Ketchum", 2, 18, "Pikachu");
 	Person* loaded = new Person("beta2", "Officer", "Jenny", 1, 18, "Chansey");
 };
 
@@ -17,6 +18,13 @@ TEST_F(test_person, test_constructors) {
 	EXPECT_EQ(person.get_gender(), 0);
 	EXPECT_EQ(person.get_age(), 0);
 	EXPECT_EQ(person.get_tagline(), "");
+
+	EXPECT_EQ(illegal -> get_username(), "");
+	EXPECT_EQ(illegal -> get_firstname(), "");
+	EXPECT_EQ(illegal -> get_lastname(), "");
+	EXPECT_EQ(illegal -> get_gender(), 0);
+	EXPECT_EQ(illegal -> get_age(), 0);
+	EXPECT_EQ(illegal -> get_tagline(), "");
 
 	EXPECT_EQ(loaded -> get_username(), "beta2");
 	EXPECT_EQ(loaded -> get_firstname(), "Officer");
@@ -193,19 +201,19 @@ TEST_F(test_person, test_info) {
 	EXPECT_EQ(person.get_info(), "username: , first name: , last name: , gender: 0, age: 0, tagline: ");
 
 	EXPECT_FALSE(person.set_info("alpha1", "Ash1", "Ketchum1", 17, "", -1));
-	EXPECT_EQ(person.get_info(), "username: alpha1, first name: , last name: , gender: 0, age: 0, tagline: ");
+	EXPECT_EQ(person.get_info(), "username: , first name: , last name: , gender: 0, age: 0, tagline: ");
 
 	EXPECT_FALSE(person.set_info("alpha1", "Ash", "Ketchum1", 0, "", -1));
-	EXPECT_EQ(person.get_info(), "username: alpha1, first name: Ash, last name: , gender: 0, age: 0, tagline: ");
+	EXPECT_EQ(person.get_info(), "username: , first name: , last name: , gender: 0, age: 0, tagline: ");
 
 	EXPECT_FALSE(person.set_info("alpha1", "Officer", "Jenny", 17, "", -1));
-	EXPECT_EQ(person.get_info(), "username: alpha1, first name: Officer, last name: Jenny, gender: 0, age: 0, tagline: ");
+	EXPECT_EQ(person.get_info(), "username: , first name: , last name: , gender: 0, age: 0, tagline: ");
 
 	EXPECT_FALSE(person.set_info("alpha1", "Officer", "Jenny", 18, "", -1));
-	EXPECT_EQ(person.get_info(), "username: alpha1, first name: Officer, last name: Jenny, gender: 0, age: 18, tagline: ");
+	EXPECT_EQ(person.get_info(), "username: , first name: , last name: , gender: 0, age: 0, tagline: ");
 
 	EXPECT_FALSE(person.set_info("alpha1", "Officer", "Jenny", 18, "Chansey", -1));
-	EXPECT_EQ(person.get_info(), "username: alpha1, first name: Officer, last name: Jenny, gender: 0, age: 18, tagline: Chansey");
+	EXPECT_EQ(person.get_info(), "username: , first name: , last name: , gender: 0, age: 0, tagline: ");
 
 	EXPECT_TRUE(person.set_info("alpha1", "Ash", "Ketchum", 18, "Pikachu", 2));
 	EXPECT_EQ(person.get_info(), "username: alpha1, first name: Ash, last name: Ketchum, gender: Male, age: 18, tagline: Pikachu");
