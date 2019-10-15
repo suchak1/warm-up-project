@@ -43,6 +43,14 @@ bool valid_gender(int _gender) {
   return (_gender == 1 || _gender == 2);
 }
 
+bool valid_age(int _age) {
+  return (_age >= 18 && _age <= 99);
+}
+
+bool valid_tag(string _tagline) {
+  return (_tagline != "" && _tagline.length() <= 512);
+}
+
 Person::Person(string _username, string _firstname, string _lastname,
                int _gender, int _age, string _tagline)
   : username(_username), firstname(_firstname), lastname(_lastname),
@@ -125,7 +133,7 @@ bool Person::set_gender(int _gender){
 }
 
 bool Person::set_age(int _age) {
-    if (_age >= 18 && _age <= 99) {
+    if (valid_age(_age)) {
         age = _age;
         return true;
     }
@@ -134,7 +142,7 @@ bool Person::set_age(int _age) {
     }
 }
 bool Person::set_tagline(string _tagline) {
-    if (_tagline != "" && _tagline.length() <= 512) {
+    if (valid_tag(_tagline)) {
         tagline = _tagline;
         return true;
     }
