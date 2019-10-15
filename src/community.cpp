@@ -107,9 +107,9 @@ bool Community::send_msg(list<string> usernames, string msg) {
 
   for(it = usernames.begin(); it != usernames.end(); ++it) {
     if (people.count(*it) == 1) {
-      Person().send_msg(people.at(*it), msg);
-    }
-    else {
+      Person *p = new Person();
+      p -> send_msg(people.at(*it), msg);
+    } else {
       success = false;
     }
   }

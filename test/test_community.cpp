@@ -8,10 +8,15 @@ protected:
 	Community community;
 	Community* illegal = new Community("!Illegal", map<string,Person>
 		{{"alpha1", Person("alpha1", "Ash", "Ketchum", 2, 18, "Pikachu")}});
-	Community* loaded = new Community("Summerbrooke", map<string,Person>
-		{{"alpha1", Person("alpha1", "Ash", "Ketchum", 2, 18, "Pikachu")}});
-	Person* loaded_person = new Person("beta2", "Officer", "Jenny", 1, 20, "Chansey");
 
+	Person* loaded_person = new Person("beta2", "Officer", "Jenny", 1, 20, "Chansey");
+	Person* recipient = new Person("alpha1", "Ash", "Ketchum", 2, 18, "Pikachu");
+	Person* person = new Person();
+
+	Community* loaded = new Community("Summerbrooke", map<string,Person>
+		{{"alpha1", *recipient}});
+	Community* send = new Community("Summerbrooke", map<string,Person>
+		{{"alpha1", *recipient}, {"beta2", *loaded_person}});
 };
 
 // test constructors
@@ -127,4 +132,30 @@ TEST_F(test_community, get_member) {
 
 // test send_msg
 TEST_F(test_community, send_msg) {
+	list<string> empty {};
+	list<string> valid {"alpha1", "beta2"};
+	list<string> invalid {"alpha1", "beta2", "gamma3"};
+
+	EXPECT_EQ(community.send_msg(empty, ""), true);
+	EXPECT_EQ(community.send_msg(valid, ""), false);
+	EXPECT_EQ(community.send_msg(invalid, ""), false);
+
+	EXPECT_EQ(send -> get_member("alpha1").get_msgstat(*person), 0);
+	EXPECT_EQ(send -> get_member("beta2").get_msgstat(*person), 0);
+	EXPECT_EQ(send -> send_msg(empty, "new msg"), true);
+
+	EXPECT_EQ(send -> get_member("alpha1").get_msgstat(*person), 0);
+	EXPECT_EQ(send -> get_member("beta2").get_msgstat(*person), 0);
+	EXPECT_EQ(send -> send_msg(valid, "new msg"), true);
+
+	EXPECT_EQ(send -> get_member("alpha1").get_msgstat(*person), 1);
+	EXPECT_EQ(send -> get_member("beta2").get_msgstat(*person), 1);
+	EXPECT_EQ(send -> send_msg(invalid, "new msg"), false);
+
+	EXPECT_EQ(send -> get_member("alpha1").get_msgstat(*person), 2);
+	EXPECT_EQ(send -> get_member("beta2").get_msgstat(*person), 2);
+	EXPECT_EQ(send -> get_member("gamma3").get_msgstat(*person), 0);
+
+	EXPECT_EQ(send -> get_member("alpha1").get_msgstat(*loaded_person), 0);
+	EXPECT_EQ(send -> get_member("beta2").get_msgstat(*loaded_person), 0);
 }
