@@ -181,23 +181,18 @@ bool Person::in_block_list(string username){
 	return block_list.find(username) != block_list.end();
 }
 
-void Person::add_msg(pair <string, Person> new_msg) {
-  inbox_stat.push(new_msg);
-}
-
 bool Person::send_msg(Person &recipient, string msg) {
 
 	if (recipient.get_msgstat(*this) < 5 && !recipient.in_block_list(username)) {
-    pair <string, Person> new_msg = make_pair(msg, *this);
-    recipient.add_msg(new_msg);
+    recipient.get_msg_with_info(msg, this);
     return true;
   }
 	return false;
 }
 
 void Person::get_msg_with_info(string msg, Person* sender) {
-	// TODO
-	// get message
+  pair <string, Person> new_msg = make_pair(msg, *sender);
+  inbox_stat.push(new_msg);
 }
 
 int Person::get_msgstat(Person recipient){

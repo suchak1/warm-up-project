@@ -50,7 +50,6 @@ class Person {
                   int _age, string _tagline, int _gender);
     void add_to_block_list(string username);
     bool in_block_list(string username);
-    void add_msg(pair <string, Person> new_msg);
     bool send_msg(Person &recipient, string msg);
     void get_msg_with_info(string msg, Person* sender);
     int  get_msgstat(Person recipient); //return how many unread messages from recipent in inbox
