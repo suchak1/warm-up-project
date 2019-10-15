@@ -6,6 +6,8 @@
 class test_community: public ::testing::Test {
 protected:
 	Community community;
+	Community* illegal = new Community("!Illegal", map<string,Person>
+		{{"alpha1", Person("alpha1", "Ash", "Ketchum", 2, 18, "Pikachu")}});
 	Community* loaded = new Community("Summerbrooke", map<string,Person>
 		{{"alpha1", Person("alpha1", "Ash", "Ketchum", 2, 18, "Pikachu")}});
 	Person* loaded_person = new Person("beta2", "Officer", "Jenny", 1, 20, "Chansey");
@@ -16,6 +18,10 @@ protected:
 TEST_F(test_community, test_constructors) {
 	EXPECT_EQ(community.get_name(), "");
 	EXPECT_EQ(community.get_all_usernames().empty(), true);
+
+	EXPECT_EQ(illegal -> get_name() == "!Illegal", false);
+	EXPECT_EQ(illegal -> get_name(), "");
+	EXPECT_EQ(illegal -> get_all_usernames().empty(), true);
 
 	EXPECT_EQ(loaded -> get_name(), "Summerbrooke");
 	EXPECT_EQ(loaded -> get_all_usernames().empty(), false);
