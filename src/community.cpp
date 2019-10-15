@@ -5,8 +5,18 @@ Community::Community()
   : name(""), people(map<string,Person>()) {
 }
 
-Community::Community(string _name, map<string,Person> _people)
-  : name(_name), people(_people) {
+bool valid_comm_name(string _name) {
+  return (_name != "" && _name.length() <= 128 && !isdigit(_name[0]) && str_isalnum(_name));
+}
+
+Community::Community(string _name, map<string,Person> _people) {
+    if(valid_comm_name(_name)) {
+      set_name(_name);
+      people = _people;
+    } else {
+      name = "";
+      people = map<string,Person>();
+    }
 }
 
 string Community::get_name() {
@@ -14,7 +24,7 @@ string Community::get_name() {
 }
 
 bool Community::set_name(string _name) {
-  if(_name != "" && _name.length() <= 128 && !isdigit(_name[0]) && str_isalnum(_name)) {
+  if(valid_comm_name(_name)) {
     name = _name;
     return true;
   }
