@@ -109,60 +109,50 @@ string Person::get_info() {
 
 bool Person::set_username(string _username) {
   if (valid_username(_username)) {
-      username = _username;
-      return true;
-    }
-
+    username = _username;
+    return true;
+  }
 	return false;
 }
 
 bool Person::set_firstname(string _firstname) {
 	if (valid_name(_firstname)) {
-        firstname = _firstname;
-        return true;
-    }
-    else {
-        return false;
-    }
+    firstname = _firstname;
+    return true;
+  }
+  return false;
 }
 
 
 bool Person::set_lastname(string _lastname) {
 	if (valid_name(_lastname)) {
-        lastname = _lastname;
-        return true;
-    }
-    else {
-        return false;
-    }
+    lastname = _lastname;
+    return true;
+  }
+  return false;
 }
 
 bool Person::set_gender(int _gender){
-    if (valid_gender(_gender)) {
-      gender = _gender;
-      return true;
-    }
-
-    return false;
+  if (valid_gender(_gender)) {
+    gender = _gender;
+    return true;
+  }
+  return false;
 }
 
 bool Person::set_age(int _age) {
-    if (valid_age(_age)) {
-        age = _age;
-        return true;
-    }
-    else {
-        return false;
-    }
+  if (valid_age(_age)) {
+    age = _age;
+    return true;
+  }
+  return false;
 }
 bool Person::set_tagline(string _tagline) {
-    if (valid_tag(_tagline)) {
-        tagline = _tagline;
-        return true;
-    }
-    else {
-        return false;
-    }
+  if (valid_tag(_tagline)) {
+    tagline = _tagline;
+    return true;
+  }
+  return false;
 }
 
 
@@ -202,7 +192,6 @@ bool Person::send_msg(Person &recipient, string msg) {
     recipient.add_msg(new_msg);
     return true;
   }
-
 	return false;
 }
 
@@ -221,10 +210,16 @@ int Person::get_msgstat(Person recipient){
   }
 	return count;
 }
-// delete message (front or back?) and return inbox_stat.length() <= 1
-bool Person::read_msg() {
-	// TODO
-	// print the message if there any message inbox
-    return false;
 
+bool Person::read_msg() {
+
+  if (!inbox_stat.empty()) {
+    cout << inbox_stat.front().second.get_username() <<
+      ": " << inbox_stat.front().first << endl;
+    inbox_stat.pop();
+    return true;
+  }
+
+  cout << "" << endl;
+  return false;
 }
