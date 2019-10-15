@@ -5,7 +5,7 @@
 class test_person: public ::testing::Test {
 protected:
 	Person person;
-	Person recipient;
+	Person* recipient = new Person("alpha1", "Ash", "Ketchum", 2, 18, "Pikachu");
 	Person* illegal = new Person("!Illegal", "Ash", "Ketchum", 2, 18, "Pikachu");
 	Person* loaded = new Person("beta2", "Officer", "Jenny", 1, 18, "Chansey");
 };
@@ -223,4 +223,58 @@ TEST_F(test_person, test_info) {
 //   to make your code shorter, we suggest combining these tests together; you
 //   can also separate them into several test cases
 TEST_F(test_person, test_msg) {
+	EXPECT_EQ(person.get_msgstat(Person()), 0);
+
+	EXPECT_EQ(recipient -> get_msgstat(*loaded), 0);
+	EXPECT_EQ(recipient -> in_block_list("beta2"), false);
+
+	EXPECT_EQ(loaded -> send_msg(*recipient, "Hi."), true);
+	EXPECT_EQ(recipient -> get_msgstat(*loaded), 1);
+
+	EXPECT_EQ(loaded -> send_msg(*recipient, "These"), true);
+	EXPECT_EQ(recipient -> get_msgstat(*loaded), 2);
+
+	EXPECT_EQ(loaded -> send_msg(*recipient, "are"), true);
+	EXPECT_EQ(recipient -> get_msgstat(*loaded), 3);
+
+	EXPECT_EQ(loaded -> send_msg(*recipient, "messages"), true);
+	EXPECT_EQ(recipient -> get_msgstat(*loaded), 4);
+
+	EXPECT_EQ(loaded -> send_msg(*recipient, "from beta2."), true);
+	EXPECT_EQ(recipient -> get_msgstat(*loaded), 5);
+
+	EXPECT_EQ(recipient -> in_block_list("beta2"), false);
+	EXPECT_EQ(loaded -> send_msg(*recipient, "6th message"), false);
+	EXPECT_EQ(recipient -> get_msgstat(*loaded), 5);
+
+	EXPECT_EQ(recipient -> read_msg(), true);
+	EXPECT_EQ(recipient -> get_msgstat(*loaded), 4);
+
+	EXPECT_EQ(recipient -> read_msg(), true);
+	EXPECT_EQ(recipient -> get_msgstat(*loaded), 3);
+
+	EXPECT_EQ(recipient -> read_msg(), true);
+	EXPECT_EQ(recipient -> get_msgstat(*loaded), 2);
+
+	EXPECT_EQ(recipient -> read_msg(), true);
+	EXPECT_EQ(recipient -> get_msgstat(*loaded), 1);
+
+	EXPECT_EQ(recipient -> read_msg(), true);
+	EXPECT_EQ(recipient -> get_msgstat(*loaded), 0);
+
+	EXPECT_EQ(recipient -> read_msg(), false);
+	EXPECT_EQ(recipient -> get_msgstat(*loaded), 0);
+
+	EXPECT_EQ(recipient -> in_block_list("beta2"), false);
+	EXPECT_EQ(loaded -> send_msg(*recipient, "Block me."), true);
+	EXPECT_EQ(recipient -> get_msgstat(*loaded), 1);
+	EXPECT_EQ(recipient -> read_msg(), true);
+	EXPECT_EQ(recipient -> get_msgstat(*loaded), 0);
+
+
+	recipient -> add_to_block_list("beta2");
+	EXPECT_EQ(recipient -> in_block_list("beta2"), true);
+	EXPECT_EQ(loaded -> send_msg(*recipient, "This message is blocked"), false);
+	EXPECT_EQ(recipient -> read_msg(), false);
+	EXPECT_EQ(recipient -> get_msgstat(*loaded), 0);
 }
