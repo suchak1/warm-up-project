@@ -14,8 +14,33 @@ bool str_isalnum(const string s)
     return !s.empty() && it == s.end();
 }
 
+bool str_hasnum(string str) {
+  for (int i = 0; i < str.length(); i++) {
+    if (isdigit(str[i])) {
+      return true;
+    }
+  }
+  return false;
+}
+
 Person::Person()
   : username(""), firstname(""), lastname(""), gender(0), age(0), tagline("") {
+}
+
+bool valid_username(string _username) {
+  return (_username != "" &&
+    str_isalnum(_username) &&
+    _username.length() <= 128 &&
+    isalpha(_username[0]) &&
+    str_hasnum(_username));
+}
+
+bool valid_name(string name) {
+  return (name != "" && str_isalpha(name) && name.length() <= 64);
+}
+
+bool valid_gender(int _gender) {
+  return (_gender == 1 || _gender == 2);
 }
 
 Person::Person(string _username, string _firstname, string _lastname,
@@ -60,30 +85,13 @@ string Person::get_info() {
     return ret;
 }
 
-bool str_hasnum(string str) {
-  for (int i = 0; i < str.length(); i++) {
-    if (isdigit(str[i])) {
-      return true;
-    }
-  }
-  return false;
-}
-
 bool Person::set_username(string _username) {
-  if (_username != "" &&
-    str_isalnum(_username) &&
-    _username.length() <= 128 &&
-    isalpha(_username[0]) &&
-    str_hasnum(_username)) {
+  if (valid_username(_username)) {
       username = _username;
       return true;
     }
 
 	return false;
-}
-
-bool valid_name(string name) {
-  return (name != "" && str_isalpha(name) && name.length() <= 64);
 }
 
 bool Person::set_firstname(string _firstname) {
@@ -108,7 +116,7 @@ bool Person::set_lastname(string _lastname) {
 }
 
 bool Person::set_gender(int _gender){
-    if (_gender == 1 || _gender == 2) {
+    if (valid_gender(_gender)) {
       gender = _gender;
       return true;
     }
