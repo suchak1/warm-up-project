@@ -51,10 +51,24 @@ bool valid_tag(string _tagline) {
   return (_tagline != "" && _tagline.length() <= 512);
 }
 
+bool all_valid(string _username, string _firstname, string _lastname,
+               int _gender, int _age, string _tagline) {
+  return (valid_username(_username) && valid_name(_firstname) && valid_name(_lastname)
+  && valid_age(_age) && valid_tag(_tagline) && valid_gender(_gender));
+}
+
 Person::Person(string _username, string _firstname, string _lastname,
-               int _gender, int _age, string _tagline)
-  : username(_username), firstname(_firstname), lastname(_lastname),
-    gender(_gender), age(_age), tagline(_tagline) {
+               int _gender, int _age, string _tagline) {
+  if(all_valid(_username, _firstname, _lastname, _gender, _age, _tagline)) {
+    set_info(_username, _firstname, _lastname, _age, _tagline, _gender);
+  } else {
+    username = "";
+    firstname = "";
+    lastname = "";
+    gender = 0;
+    age = 0;
+    tagline = "";
+  }
 }
 
 string Person::get_username() {
@@ -155,9 +169,7 @@ bool Person::set_tagline(string _tagline) {
 bool Person::set_info(string _username, string _firstname, string _lastname,
                       int _age, string _tagline, int _gender) {
 
-  bool success =
-    valid_username(_username) && valid_name(_firstname) && valid_name(_lastname)
-    && valid_age(_age) && valid_tag(_tagline) && valid_gender(_gender);
+  bool success = all_valid(_username, _firstname, _lastname, _gender, _age, _tagline);
 
   if(success) {
     set_username(_username);
