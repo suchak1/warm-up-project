@@ -154,14 +154,19 @@ bool Person::set_tagline(string _tagline) {
 
 bool Person::set_info(string _username, string _firstname, string _lastname,
                       int _age, string _tagline, int _gender) {
-  bool success = true;
 
-  success &= set_username(_username);
-  success &= set_firstname(_firstname);
-  success &= set_lastname(_lastname);
-  success &= set_age(_age);
-  success &= set_tagline(_tagline);
-  success &= set_gender(_gender);
+  bool success =
+    valid_username(_username) && valid_name(_firstname) && valid_name(_lastname)
+    && valid_age(_age) && valid_tag(_tagline) && valid_gender(_gender);
+
+  if(success) {
+    set_username(_username);
+    set_firstname(_firstname);
+    set_lastname(_lastname);
+    set_age(_age);
+    set_tagline(_tagline);
+    set_gender(_gender);
+  }
 
   return success;
 }
