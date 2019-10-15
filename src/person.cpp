@@ -191,17 +191,18 @@ bool Person::send_msg(Person &recipient, string msg) {
 }
 
 void Person::get_msg_with_info(string msg, Person* sender) {
-  pair <string, Person> new_msg = make_pair(msg, *sender);
+  pair <string, Person*> new_msg = make_pair(msg, sender);
   inbox_stat.push(new_msg);
 }
 
 int Person::get_msgstat(Person recipient){
-  queue<pair<string,Person> > temp = inbox_stat;
+  queue<pair<string,Person*> > temp = inbox_stat;
   int count = 0;
 
   while (!temp.empty()) {
-    if (temp.front().second.get_username() == recipient.get_username())
+    if (temp.front().second -> get_username() == recipient.get_username())
       count++;
+    temp.pop();
   }
 	return count;
 }
@@ -209,7 +210,7 @@ int Person::get_msgstat(Person recipient){
 bool Person::read_msg() {
 
   if (!inbox_stat.empty()) {
-    cout << inbox_stat.front().second.get_username() <<
+    cout << inbox_stat.front().second -> get_username() <<
       ": " << inbox_stat.front().first << endl;
     inbox_stat.pop();
     return true;
